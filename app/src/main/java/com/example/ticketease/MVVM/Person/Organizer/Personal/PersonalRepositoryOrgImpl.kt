@@ -11,8 +11,7 @@ class PersonalRepositoryOrgImpl (
     private val prefs : SharedPreferences
     ) : PersonalRepositoryOrg {
         override suspend fun getByToken(organize: OrganizerResponse): OrganizerWithoutPswd {
-            val response = api.orgByToken(organize)
-            val b = OrganizerWithoutPswd(response.name, response.surname, response.email, response.mobile, response.status, response.token)
-            return b
+            return api.orgByToken(organize)
+
         }
 }

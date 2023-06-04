@@ -3,7 +3,6 @@ package com.example.ticketease.Screens.EnterAppByer
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -21,15 +20,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.ticketease.MVVM.Person.Buyer.Register.RegistResult
-import com.example.ticketease.MVVM.Person.Buyer.Register.RegisterStateTextFields
-import com.example.ticketease.MVVM.Person.Buyer.Register.ViewModelRegistBuyer
 import com.example.ticketease.MVVM.Person.Buyer.UpdateBuyer.UpdateBuyerResult
 import com.example.ticketease.MVVM.Person.Buyer.UpdateBuyer.UpdateBuyerStateTextFields
 import com.example.ticketease.MVVM.Person.Buyer.UpdateBuyer.ViewModelUpdateBuyer
 
 import com.example.ticketease.R
-import java.util.*
 
 @Composable
 fun PersonalCorrectInformation(navController: NavHostController, viewModel: ViewModelUpdateBuyer = hiltViewModel()) {

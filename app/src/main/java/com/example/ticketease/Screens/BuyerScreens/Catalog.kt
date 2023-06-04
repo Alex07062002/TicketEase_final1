@@ -2,7 +2,6 @@ package com.example.ticketease.Screens.EnterAppByer
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -11,23 +10,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.ticketease.DataClasses.Person.Buyer
-import com.example.ticketease.MVVM.Person.Buyer.Catalog.ViewModelCatalog
-import com.example.ticketease.MVVM.Person.Buyer.CitySelector.ViewModelCitySelector
-
-import com.example.ticketease.MVVM.Person.Buyer.Personal.ViewModelPersonal
+import com.example.ticketease.MVVM.Event.Catalog.ViewModelCatalog
 import com.example.ticketease.R
-import kotlinx.coroutines.flow.onEach
+import java.time.Instant
 
 
 @Composable
  fun Catalog(navController: NavHostController, viewModel: ViewModelCatalog = hiltViewModel()) {
-    var searchQuery by remember { mutableStateOf("") }
+    val state = viewModel.state.value
     Column() {
         Box(
 
@@ -56,9 +50,15 @@ import kotlinx.coroutines.flow.onEach
                         .wrapContentSize(Alignment.Center)
                         .verticalScroll(rememberScrollState())
                 ) {
-
-                    val list = viewModel.getCatalog()
-                    list.hashCode()
+                    for (event in state){
+                        ListItem(
+                            name = event.name,
+                            location = event.location,
+                            date =  Instant.ofEpochMilli(event.date),
+                            cost = event.price,
+                            ID = R.drawable.vkz
+                        )
+                    }
                 }
 
                 Box(
@@ -72,8 +72,8 @@ import kotlinx.coroutines.flow.onEach
                             Image(
                                 painterResource(id = R.drawable.bar1),
                                 contentDescription = "image",
-                                modifier = Modifier.size(29.dp, 29.dp).offset(25.dp, -5.dp).clickable(){
-                                    //navController.navigate(NavigationItem.Catalog.route)
+                                modifier = Modifier.size(29.dp, 29.dp).offset(25.dp, -5.dp).clickable{
+                                    navController.navigate("Catalog")
                                 }
                                 ,
                                 contentScale = ContentScale.Crop
@@ -91,7 +91,8 @@ import kotlinx.coroutines.flow.onEach
                                 painterResource(id = R.drawable.dscds),
                                 contentDescription = "image",
                                 modifier = Modifier.size(35.dp, 35.dp).offset(-7.dp, -7.dp).clickable(){
-                                    //navController.navigate(NavigationItem.Prefarence.route) // TODO change this
+                                    viewModel.createPreference()
+                                    navController.navigate("Prefarence")
                                 }
                                 ,
                                 contentScale = ContentScale.Crop
@@ -106,6 +107,7 @@ import kotlinx.coroutines.flow.onEach
                                 painterResource(id = R.drawable.shopcart),
                                 contentDescription = "image",
                                 modifier = Modifier.size(30.dp, 30.dp).offset(-25.dp, -5.dp).clickable(){
+                                                                                                        // TODO load ticket
                                    // navController.navigate(NavigationItem.Cart.route) // TODO change this
                                 }
                                 ,
@@ -140,7 +142,7 @@ fun CatalogScreenPreview(navController: NavHostController) {
 }
 
 @Composable
-fun ListItem(cost:String, location:String, date:String, name:String,  ID: Int){
+fun ListItem(cost:Double, location:String, date:Instant, name:String,  ID: Int){
     var isLiked by remember { mutableStateOf(false) }
 
     Card(modifier = Modifier
@@ -211,7 +213,7 @@ fun ListItem(cost:String, location:String, date:String, name:String,  ID: Int){
                         contentScale = ContentScale.Crop
                     )
                     Text(
-                        text = "Стоимость",
+                        text = cost.toString(),
                         modifier = Modifier.offset(20.dp, 20.dp),
                         fontSize = 15.sp
                     )
@@ -227,7 +229,7 @@ fun ListItem(cost:String, location:String, date:String, name:String,  ID: Int){
                         contentScale = ContentScale.Crop
                     )
                     Text(
-                        text = "Местоположение",
+                        text = location,
                         modifier = Modifier.offset(20.dp, 20.dp),
                         fontSize = 15.sp
                     )
@@ -240,7 +242,7 @@ fun ListItem(cost:String, location:String, date:String, name:String,  ID: Int){
                         contentScale = ContentScale.Crop
                     )
                     Text(
-                        text = "Дата проведения",
+                        text = date.toString(),
                         modifier = Modifier.offset(20.dp, 20.dp),
                         fontSize = 15.sp
                     )

@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.example.ticketease.DataClasses.Catalog
 import com.example.ticketease.DataClasses.PlaceTime.PlaceDTO
 import com.example.ticketease.DataClasses.PlaceTime.PlaceType
-import com.example.ticketease.MVVM.Person.Buyer.Catalog.CatalogRepository
 import com.ticketEase.backend.DataClasses.Place.TypeOfPlace
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

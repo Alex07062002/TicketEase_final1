@@ -183,6 +183,7 @@ fun Personal(navController: NavHostController, viewModel: ViewModelPersonal = hi
                                             .size(29.dp, 29.dp)
                                             .offset(25.dp, (-5).dp)
                                             .clickable{
+                                                viewModel.createCatalog()
                                                 navController.navigate("Catalog")
                                             },
                                         contentScale = ContentScale.Crop
@@ -208,7 +209,8 @@ fun Personal(navController: NavHostController, viewModel: ViewModelPersonal = hi
                                             .size(35.dp, 35.dp)
                                             .offset((-7).dp, (-7).dp)
                                             .clickable{
-                                                //navController.navigate(NavigationItem.Prefarence.route)
+                                                viewModel.createPreference()
+                                                navController.navigate("Prefarence")
                                             },
                                         contentScale = ContentScale.Crop
                                     )
@@ -229,6 +231,7 @@ fun Personal(navController: NavHostController, viewModel: ViewModelPersonal = hi
                                             .size(30.dp, 30.dp)
                                             .offset(-25.dp, -5.dp)
                                             .clickable() {
+                                                         // TODO get ticket
                                                 //navController.navigate(NavigationItem.Cart.route)
                                             },
                                         contentScale = ContentScale.Crop
@@ -250,7 +253,7 @@ fun Personal(navController: NavHostController, viewModel: ViewModelPersonal = hi
                                             .size(31.dp, 31.dp)
                                             .offset(-15.dp, -5.dp)
                                             .clickable() {
-                                                //navController.navigate(NavigationItem.PersonalNAUser.route)
+                                                navController.navigate("Personal")
                                             },
                                         contentScale = ContentScale.Crop
                                     )

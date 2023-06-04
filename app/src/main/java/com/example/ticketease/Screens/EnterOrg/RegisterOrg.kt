@@ -42,8 +42,6 @@ fun RegisterOrg(navController: NavHostController, viewModel: ViewModelRegistOrg 
             when (res){
                 is RegistResultOrg.Registered -> {
                     navController.navigate("Personal")
-
-                   // navController.navigate("ConnectToManager")
                 }
                 is RegistResultOrg.Unregistered -> {
                    navController.navigate("UncorrectTextOrg")

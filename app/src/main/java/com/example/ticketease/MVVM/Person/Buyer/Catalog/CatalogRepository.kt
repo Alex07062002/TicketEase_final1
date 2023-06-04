@@ -1,10 +1,13 @@
-package com.example.ticketease.MVVM.Person.Buyer.Catalog
+package com.example.ticketease.MVVM.Event.Catalog
 
 import com.example.ticketease.DataClasses.Catalog
-import com.example.ticketease.DataClasses.Person.Cities
-import kotlinx.coroutines.flow.Flow
 
 interface CatalogRepository {
-   // suspend fun catalog(city: Cities?): Flow<ApiResult<List<Catalog>>>
+     suspend fun getAllEvents(): List<Catalog>
 
+     suspend fun preferencesRoom() : List<Catalog>
+
+     suspend fun selectEventByBuyer() : List<Long>
+
+     //TODO add fun getSoldTicket
 }

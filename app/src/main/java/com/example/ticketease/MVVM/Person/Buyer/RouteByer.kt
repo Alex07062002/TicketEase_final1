@@ -3,6 +3,10 @@ package com.example.ticketease.MVVM.Person.Buyer
 import android.app.Application
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import com.example.ticketease.MVVM.Event.Catalog.CatalogRepository
+import com.example.ticketease.MVVM.Event.Catalog.CatalogRepositoryImpl
+import com.example.ticketease.MVVM.Event.Preferences.PreferencesRepository
+import com.example.ticketease.MVVM.Event.Preferences.PreferencesRepositoryImpl
 import com.example.ticketease.MVVM.Event.getEvents.getEventsRepository
 import com.example.ticketease.MVVM.Event.getEvents.getEventsRepositoryImpl
 import com.example.ticketease.MVVM.Event.getTime.getTimeRepository
@@ -11,9 +15,6 @@ import com.example.ticketease.MVVM.Event.getTime.getTimeRepositoryImpl
 
 import com.example.ticketease.MVVM.Person.Buyer.Avtorize.AvtRepository
 import com.example.ticketease.MVVM.Person.Buyer.Avtorize.AvtRepositoryImpl
-import com.example.ticketease.MVVM.Person.Buyer.Catalog.CatalogRepository
-import com.example.ticketease.MVVM.Person.Buyer.Catalog.CatalogRepositoryImpl
-import com.example.ticketease.MVVM.Person.Buyer.CitySelector.CitySelector
 import com.example.ticketease.MVVM.Person.Buyer.CitySelector.CitySelectorRepository
 import com.example.ticketease.MVVM.Person.Buyer.CitySelector.CitySelectorRepositoryImpl
 import com.example.ticketease.MVVM.Person.Buyer.Personal.PersonalRepository
@@ -143,6 +144,15 @@ fun provideSharedPref(app : Application) : SharedPreferences{
     @Singleton
     fun provideGetTime(api : BuyerRetrofitAPI,prefs : SharedPreferences) : getTimeRepository {
         return getTimeRepositoryImpl(api, prefs)
+    }
+
+    @Provides
+    @Singleton
+    fun providePreferencesRepository(
+        api: BuyerRetrofitAPI,
+        prefs: SharedPreferences
+    ): PreferencesRepository {
+        return PreferencesRepositoryImpl(api, prefs)
     }
 }
 

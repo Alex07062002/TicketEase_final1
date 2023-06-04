@@ -103,7 +103,6 @@ fun AvtorizeOrg(navController: NavHostController, viewModel: ViewModelAvtOrg = h
 
                     Column {
                         Text("Войти", fontSize = 15.sp, color = Color.White)
-
                     }
                 }
             }

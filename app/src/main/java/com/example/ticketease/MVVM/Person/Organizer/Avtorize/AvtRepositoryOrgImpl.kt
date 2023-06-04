@@ -17,7 +17,6 @@ class AvtRepositoryOrgImpl (private val api : BuyerRetrofitAPI,
             val response = api.avtorizeOrg(organize)
             prefs.edit().putString("organizer", Gson().toJson(response)).apply()
             prefs.edit().putString("token", response.token).apply()
-
             AvtResultOrg.Avtorized()
         } catch (e: HttpException) {
             if (e.code() == 401) AvtResultOrg.IncorrectPassword() else

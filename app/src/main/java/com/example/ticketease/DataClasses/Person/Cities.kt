@@ -13,4 +13,5 @@ enum class Cities (val city : String) {
 @Serializable
 data class City(
     @JsonProperty("city")
-    val city : Cities)
+    val city: String
+)

@@ -3,7 +3,6 @@ package com.example.ticketease.DataClasses
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import kotlinx.serialization.Serializable
-import java.time.Instant
 
 
 @Serializable
@@ -18,6 +17,5 @@ data class Catalog(
     val location : String,
     @JsonProperty("date")
 
-    @Serializable(with = DateSerializer::class)
-    val date : Instant
+    val date : Long
     )

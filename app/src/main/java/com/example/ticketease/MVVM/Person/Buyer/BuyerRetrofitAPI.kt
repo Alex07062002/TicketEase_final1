@@ -23,7 +23,7 @@ interface BuyerRetrofitAPI {
     @POST("/buyers/token")
    suspend  fun buyerByToken(@Body dataModel: BuyerResponse?):  BuyerWithoutPswd
 
-    @PUT("/buyers/id/update")
+    @PUT("/buyers/update")
     suspend  fun buyerUpdate(@Body dataModel: BuyerWithoutPswd?):  BuyerWithoutPswd
 
     @POST("/buyers/updateCity")
@@ -35,22 +35,16 @@ interface BuyerRetrofitAPI {
 
 
     @PUT("/organizers/signIn")
-    suspend fun avtorizeOrg(@Body dataModel: OrganizerRequest?): OrganizerWithoutPswd
+    suspend fun avtorizeOrg(@Body dataModel: OrganizerRequest): OrganizerWithoutPswd
 
 
     @POST("/organizers/token")
     suspend fun orgByToken(@Body dataModel: OrganizerResponse?):  OrganizerWithoutPswd
-/*
-
- @POST("/room/catalog")
- suspend fun catalog(@Body city: Cities?): Call<CatalogResponce>
-
- */
 
  @POST("/organizers/updateCity")
  suspend  fun organizersUpdateCity(@Body dataModel: OrganizerUpdateCity?):Boolean
 
- @PUT("/organizers/id/update")
+ @PUT("/organizers/update")
  suspend  fun orgUpdate(@Body dataModel: OrganizerWithoutPswd?):  OrganizerWithoutPswd
 
  @POST("/events/create")
@@ -61,4 +55,13 @@ interface BuyerRetrofitAPI {
 
  @POST("/places/type")
  suspend fun getTime(@Body dataModel: String?):  List<PlaceTimeDTO>
+
+ @POST("/room/catalog")
+ suspend fun getAllEvents(@Body city : City): List<Catalog>
+
+ @POST("/room/preferences")
+ suspend fun preferencesRoom(@Body buyer :  BuyerUpdateCity): List<Catalog>
+
+ @POST("tickets/buyerId")
+ suspend fun selectEventByBuyer(@Body buyer : BuyerId) : List<Long>
 }
