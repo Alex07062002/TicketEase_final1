@@ -13,7 +13,6 @@ class RegisterRepositoryImpl(
     override suspend fun signIn(buyer: Buyer): RegistResult<Unit> {
         return try{
             val response = api.postBuyer(buyer)
-
             prefs.edit().putString("buyer",Gson().toJson(response)).apply()
             prefs.edit().putString("token", response.token).apply()
             RegistResult.Registered()

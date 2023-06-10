@@ -34,7 +34,7 @@ fun RegisterBuyer(navController: NavHostController, viewModel: ViewModelRegistBu
             res ->
             when (res){
                 is RegistResult.Registered -> {
-                    navController.navigate("Personal")
+                    navController.navigate("Catalog")
                 }
                 is RegistResult.Unregistered -> {
                     navController.navigate("AvtorizeByer")
@@ -135,7 +135,7 @@ fun RegisterBuyer(navController: NavHostController, viewModel: ViewModelRegistBu
 
                 Button(
                     onClick = {
-                        if (viewModel.repeatPassword.value == state.password ) {
+                        if (viewModel.repeatPassword.value == state.password) {
                             if (checkSymbols(state.name) and checkSymbols(state.surname) and android.util.Patterns.PHONE.matcher(
                                     state.mobile
                                 ).matches()

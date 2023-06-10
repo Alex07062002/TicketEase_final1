@@ -35,7 +35,7 @@ fun AvtorizeByer(navController: NavHostController, viewModel: ViewModelAvtBuyer 
                 res ->
             when (res){
                 is AvtResult.Avtorized -> {
-                    navController.navigate("Personal")
+                    navController.navigate("Catalog")
                 }
                 is AvtResult.IncorrectPassword -> {
                     navController.navigate("UncorrectTextBuyer")

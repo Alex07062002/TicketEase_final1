@@ -6,6 +6,9 @@ interface PreferencesRepository {
 
     suspend fun getAllEvents(): List<Catalog>
 
-    //TODO add getSoldTicket
+    suspend fun preferencesRoom() : List<Catalog>
+
+    suspend fun selectEventCountByBuyer() : Long
+
 
 }

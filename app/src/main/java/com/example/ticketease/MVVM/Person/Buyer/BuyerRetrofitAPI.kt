@@ -64,4 +64,7 @@ interface BuyerRetrofitAPI {
 
  @POST("tickets/buyerId")
  suspend fun selectEventByBuyer(@Body buyer : BuyerId) : List<Long>
+
+ @POST("tickets/buyerId/count")
+ suspend fun selectEventCountByBuyer(@Body buyer : BuyerId) : Long
 }

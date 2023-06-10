@@ -118,12 +118,8 @@ fun CitySelector(navController: NavHostController, viewModel: ViewModelCitySelec
                 }
             }
             Box(contentAlignment = Alignment.TopStart) {
-
-
+                // TODO What is this?
             }
-
-
         }
     }
-
 }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -13,15 +14,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.ticketease.MVVM.Event.Preferences.ViewModelPreferences
 import com.example.ticketease.R
 import java.time.Instant
 
 @Composable
-fun Prefarence(navController: NavHostController, viewModel : ViewModelPreferences = hiltViewModel()) {
-    val state = viewModel.state.value
+fun Preference(navController: NavHostController, viewModel : ViewModelPreferences = hiltViewModel()) {
+    val preferences = viewModel.preferences.observeAsState(initial = listOf())
     Column {
         Box(
 
@@ -31,7 +31,7 @@ fun Prefarence(navController: NavHostController, viewModel : ViewModelPreference
                 .fillMaxWidth(), contentAlignment = Alignment.Center
         ) {
 
-            Column() {
+            Column{
                 Spacer(modifier = Modifier.height(5.dp))
 
 
@@ -45,7 +45,7 @@ fun Prefarence(navController: NavHostController, viewModel : ViewModelPreference
 
 
         }
-        Column() {
+        Column {
 
 
             Box(
@@ -61,7 +61,7 @@ fun Prefarence(navController: NavHostController, viewModel : ViewModelPreference
                         .verticalScroll(rememberScrollState())
                 ) {
 
-                      for (event in state)
+                      for (event in preferences.value)
                         ListItem(
                               name = event.name,
                               location = event.location,
@@ -78,16 +78,15 @@ fun Prefarence(navController: NavHostController, viewModel : ViewModelPreference
                             .fillMaxWidth()
                             .height(70.dp), contentAlignment = Alignment.BottomCenter
                     ) {
-                        Row() {
-                            Column() {
+                        Row{
+                            Column{
                                 Image(
                                     painterResource(id = R.drawable.barbl),
                                     contentDescription = "image",
                                     modifier = Modifier
                                         .size(29.dp, 29.dp)
-                                        .offset(25.dp, -5.dp)
-                                        .clickable() {
-                                            viewModel.createCatalog()
+                                        .offset(25.dp, (-5).dp)
+                                        .clickable {
                                             navController.navigate("Catalog")
                                         },
                                     contentScale = ContentScale.Crop
@@ -101,14 +100,14 @@ fun Prefarence(navController: NavHostController, viewModel : ViewModelPreference
                             Box(modifier = Modifier.size(30.dp, 30.dp)) {
 
                             }
-                            Column() {
+                            Column{
                                 Image(
                                     painterResource(id = R.drawable.qyv16bev_kxg8u),
                                     contentDescription = "image",
                                     modifier = Modifier
                                         .size(35.dp, 35.dp)
-                                        .offset(0.dp, -7.dp)
-                                        .clickable() {
+                                        .offset(0.dp, (-7).dp)
+                                        .clickable {
                                             navController.navigate("Preference")
                                         },
                                     contentScale = ContentScale.Crop
@@ -116,19 +115,19 @@ fun Prefarence(navController: NavHostController, viewModel : ViewModelPreference
                                 Text(
                                     text = "Предпочтения ",
                                     fontSize = 10.sp,
-                                    modifier = Modifier.offset(-20.dp, 0.dp)
+                                    modifier = Modifier.offset((-20).dp, 0.dp)
                                 )
                             }
                             Box(modifier = Modifier.size(30.dp, 30.dp)) {
 
                             }
-                            Column() {
+                            Column {
                                 Image(
                                     painterResource(id = R.drawable.shopcart),
                                     contentDescription = "image",
                                     modifier = Modifier
                                         .size(30.dp, 30.dp)
-                                        .offset(-5.dp, -5.dp)
+                                        .offset((-5).dp, (-5).dp)
                                         .clickable() {
                                             //navController.navigate("Personal") // TODO CartView
                                         },
@@ -137,20 +136,20 @@ fun Prefarence(navController: NavHostController, viewModel : ViewModelPreference
                                 Text(
                                     text = "Корзина ",
                                     fontSize = 10.sp,
-                                    modifier = Modifier.offset(-8.dp, 5.dp)
+                                    modifier = Modifier.offset((-8).dp, 5.dp)
                                 )
                             }
                             Box(modifier = Modifier.size(30.dp, 30.dp)) {
 
                             }
-                            Column() {
+                            Column{
                                 Image(
                                     painterResource(id = R.drawable.avatar),
                                     contentDescription = "image",
                                     modifier = Modifier
                                         .size(31.dp, 31.dp)
-                                        .offset(15.dp, -5.dp)
-                                        .clickable() {
+                                        .offset(15.dp, (-5).dp)
+                                        .clickable{
                                             navController.navigate("Personal")
                                         },
                                     contentScale = ContentScale.Crop
@@ -158,7 +157,7 @@ fun Prefarence(navController: NavHostController, viewModel : ViewModelPreference
                                 Text(
                                     text = "Личный кабинет ",
                                     fontSize = 10.sp,
-                                    modifier = Modifier.offset(-10.dp, 5.dp)
+                                    modifier = Modifier.offset((-10).dp, 5.dp)
                                 )
                             }
                         }
@@ -177,9 +176,9 @@ fun ListItem(cost:Double, location:String, date: Instant, name:String, ID: Int){
         .padding(10.dp)
     ) {
         Box(modifier = Modifier.background(color = colorResource(R.color.vgrey))) {
-            Column() {
+            Column{
 
-                Row() {
+                Row{
                     Box(modifier = Modifier.fillMaxWidth(),
                         contentAlignment = Alignment.TopCenter) {
                         Text(
@@ -193,14 +192,14 @@ fun ListItem(cost:Double, location:String, date: Instant, name:String, ID: Int){
 
 
 
-                Row() {
+                Row {
                     Image(
                         painterResource(id = ID),
                         contentDescription = "image",
                         modifier = Modifier.size(250.dp, 230.dp).offset(65.dp, 10.dp),
                         contentScale = ContentScale.Crop,
                     )
-                    Column() {
+                    Column {
                         Image(
                             painterResource(
                                 id = if (isLiked) R.drawable.likecarrot else R.drawable.like
@@ -208,7 +207,7 @@ fun ListItem(cost:Double, location:String, date: Instant, name:String, ID: Int){
                             contentDescription = "image2",
                             modifier = Modifier
                                 .size(30.dp, 30.dp)
-                                .offset(98.dp, -32.dp)
+                                .offset(98.dp, (-32).dp)
                                 .clickable {
                                     isLiked = !isLiked
                                 },
@@ -216,7 +215,9 @@ fun ListItem(cost:Double, location:String, date: Instant, name:String, ID: Int){
                         )
                         Box(modifier = Modifier.height(120.dp)) {}
                         Button(
-                            onClick = { },
+                            onClick = {
+                                      //TODO added goto cart
+                            },
                             modifier = Modifier
                                 .height(40.dp)
                                 .offset(15.dp, 140.dp)
@@ -231,7 +232,7 @@ fun ListItem(cost:Double, location:String, date: Instant, name:String, ID: Int){
 
                     }
                 }
-                Row() {
+                Row {
                     Image(
                         painterResource(id = R.drawable.free_icon_ruble_1868089),
                         contentDescription = "image",
@@ -247,7 +248,7 @@ fun ListItem(cost:Double, location:String, date: Instant, name:String, ID: Int){
 
                     }
                 }
-                Row() {
+                Row {
                     Image(
                         painterResource(id = R.drawable.free_icon_place_711170),
                         contentDescription = "image",
@@ -260,7 +261,7 @@ fun ListItem(cost:Double, location:String, date: Instant, name:String, ID: Int){
                         fontSize = 15.sp
                     )
                 }
-                Row() {
+                Row {
                     Image(
                         painterResource(id = R.drawable.free_icon_dates_4253987),
                         contentDescription = "image",

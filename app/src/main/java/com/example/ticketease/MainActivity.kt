@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.testcompose.Prefarence
+import com.example.testcompose.Preference
 import com.example.testcompose.ui.theme.TestComposeTheme
 import com.example.ticketease.Screens.EnterAppByer.*
 import com.example.ticketease.Screens.EnterOrg.AvtorizeOrg
@@ -47,6 +47,7 @@ fun ScreenView(){
         composable("RegisterOrg"){ RegisterOrg(navController) }
 
         composable("Catalog"){ Catalog(navController) }
+
         composable("AvtorizeByer"){ AvtorizeByer(navController) }
         composable("AvtorizeOrg"){ AvtorizeOrg(navController) }
 
@@ -65,7 +66,7 @@ fun ScreenView(){
         composable("EnterPageByer"){ EnterPageByer(navController) }
         composable("EnterPageOrg"){ EnterPageOrg(navController) }
 
-        composable("Prefarance"){ Prefarence(navController)}
+        composable("Preference"){ Preference(navController)}
         composable("CartNAUser"){ CartNAUser(navController) }
         composable("CatalogNAUser"){ CatalogNAUser(navController) }
         composable("PersonalNAUSer"){ PersonalNAUSer(navController) }

@@ -19,7 +19,6 @@ class ViewModelRegistBuyer @Inject constructor(
     private val repository : RegisterRepository,
     private val prefs : SharedPreferences
 ) : ViewModel() {
-    //val city: SharedPreferences.Editor = prefs.edit().putString("city","Voronezh") // TODO change this
     var flag : Boolean = false
     var state by mutableStateOf(Buyer())
     var repeatPassword = mutableStateOf("")
@@ -43,6 +42,7 @@ class ViewModelRegistBuyer @Inject constructor(
             }
         }
     }
+
 
     private fun signIn(){
         viewModelScope.launch {

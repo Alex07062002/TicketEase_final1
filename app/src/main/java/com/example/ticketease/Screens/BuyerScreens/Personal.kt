@@ -183,7 +183,6 @@ fun Personal(navController: NavHostController, viewModel: ViewModelPersonal = hi
                                             .size(29.dp, 29.dp)
                                             .offset(25.dp, (-5).dp)
                                             .clickable{
-                                                viewModel.createCatalog()
                                                 navController.navigate("Catalog")
                                             },
                                         contentScale = ContentScale.Crop
@@ -210,7 +209,7 @@ fun Personal(navController: NavHostController, viewModel: ViewModelPersonal = hi
                                             .offset((-7).dp, (-7).dp)
                                             .clickable{
                                                 viewModel.createPreference()
-                                                navController.navigate("Prefarence")
+                                                navController.navigate("Preference")
                                             },
                                         contentScale = ContentScale.Crop
                                     )
