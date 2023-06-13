@@ -1,19 +1,21 @@
-package com.example.ticketease.MVVM.Person.Buyer
+package com.example.ticketease.MVVM
 
 import com.example.ticketease.DataClasses.Catalog
-import com.example.ticketease.DataClasses.CatalogResponce
 import com.example.ticketease.DataClasses.Event.EventDTO
+import com.example.ticketease.DataClasses.Event.EventId
 import com.example.ticketease.DataClasses.Person.*
 import com.example.ticketease.DataClasses.PlaceTime.PlaceDTO
 import com.example.ticketease.DataClasses.PlaceTime.PlaceId
 import com.example.ticketease.DataClasses.PlaceTime.PlaceTimeDTO
 import com.example.ticketease.DataClasses.PlaceTime.PlaceType
-import retrofit2.Call
+import com.example.ticketease.DataClasses.Ticket.TicketCountWithPrice
+import com.example.ticketease.DataClasses.Ticket.TicketDTO
+import com.example.ticketease.DataClasses.Ticket.TicketUpdate
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.PUT
 
-interface BuyerRetrofitAPI {
+interface RetrofitAPI {
     @POST("/buyers/create")
    suspend fun postBuyer(@Body dataModel: Buyer?): BuyerWithoutPswd
 
@@ -34,9 +36,8 @@ interface BuyerRetrofitAPI {
     suspend fun singInOrg(@Body dataModel: Organizer?): OrganizerWithoutPswd
 
 
-    @PUT("/organizers/signIn")
+    @POST("/organizers/signIn")
     suspend fun avtorizeOrg(@Body dataModel: OrganizerRequest): OrganizerWithoutPswd
-
 
     @POST("/organizers/token")
     suspend fun orgByToken(@Body dataModel: OrganizerResponse?):  OrganizerWithoutPswd
@@ -53,8 +54,8 @@ interface BuyerRetrofitAPI {
  @POST("/places/type")
  suspend fun getPlace(@Body dataModel: PlaceType?):  List<PlaceDTO>
 
- @POST("/places/type")
- suspend fun getTime(@Body dataModel: String?):  List<PlaceTimeDTO>
+ @POST("/placeTimes/select/placeId")
+ suspend fun getTime(@Body placeId: PlaceId) : List<PlaceTimeDTO>
 
  @POST("/room/catalog")
  suspend fun getAllEvents(@Body city : City): List<Catalog>
@@ -67,4 +68,19 @@ interface BuyerRetrofitAPI {
 
  @POST("tickets/buyerId/count")
  suspend fun selectEventCountByBuyer(@Body buyer : BuyerId) : Long
+
+ @POST("tickets/eventId/soldTicket")
+ suspend fun countSoldTicket(@Body eventId : EventId) : Long
+
+ @PUT("tickets/updateTicket")
+ suspend fun updateBuyerId(@Body ticketUpdate : TicketUpdate)
+
+ @PUT("placeTimes/update")
+ suspend fun placeTimeUpdate(@Body placeTimeDTO: PlaceTimeDTO)
+
+ @POST("events/create")
+ suspend fun eventCreate(@Body eventDTO: EventDTO) : EventDTO
+
+ @POST("room/createTicketListOrganizer")
+ suspend fun createTicket(@Body ticketWithPrice : TicketCountWithPrice)
 }

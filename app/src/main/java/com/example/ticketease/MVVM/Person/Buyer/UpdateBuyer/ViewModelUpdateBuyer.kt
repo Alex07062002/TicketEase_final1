@@ -26,7 +26,6 @@ class ViewModelUpdateBuyer @Inject constructor(
 ) : ViewModel() {
     var flag : Boolean = false
     var state by mutableStateOf(Gson().fromJson(prefs.getString("buyer",null)!!,BuyerWithoutPswd::class.java))
-
     private val resultChannel = Channel<UpdateBuyerResult<Unit>>()
     val Results = resultChannel.receiveAsFlow()
 

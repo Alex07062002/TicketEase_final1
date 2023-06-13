@@ -6,8 +6,7 @@ import com.example.ticketease.DataClasses.Person.OrganizerResponse
 import com.example.ticketease.DataClasses.Person.OrganizerWithoutPswd
 
 interface PersonalRepositoryOrg {
-
-        suspend fun getByToken(organize: OrganizerResponse) : OrganizerWithoutPswd
+        suspend fun getByToken() : OrganizerWithoutPswd
 
 
 

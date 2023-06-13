@@ -26,8 +26,8 @@ import com.example.ticketease.R
 
 @Composable
 fun PersonalOrg(navController: NavHostController, viewModel: ViewModelPersonalOrg = hiltViewModel()) {
-    val city = viewModel.city!!
-    val state = viewModel.state
+    val city = viewModel.city
+    val organizer = viewModel.personal.value!!
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -85,12 +85,12 @@ fun PersonalOrg(navController: NavHostController, viewModel: ViewModelPersonalOr
                                             .offset(-80.dp, -20.dp)
                                     ) {
                                         Text(
-                                            state.name + " ",
+                                            organizer.name + " ",
                                             fontSize = 20.sp,
                                             color = Color.Black
                                         )
                                         Text(
-                                            state.surname.toString(),
+                                            organizer.surname,
                                             fontSize = 20.sp,
                                             color = Color.Black
                                         )
@@ -98,7 +98,7 @@ fun PersonalOrg(navController: NavHostController, viewModel: ViewModelPersonalOr
 
                                     }
                                     Text(
-                                        state.mobile.toString(),
+                                        organizer.mobile.toString(),
                                         fontSize = 20.sp,
                                         modifier = Modifier
                                             .offset(-80.dp, -20.dp),

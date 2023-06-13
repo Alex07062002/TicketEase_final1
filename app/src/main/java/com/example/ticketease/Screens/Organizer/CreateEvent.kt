@@ -1,7 +1,6 @@
 package com.example.ticketease.Screens.Organizer
 
 import android.widget.Toast
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,8 +24,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.ticketease.MVVM.Event.EnterParam.EnterParamStateTextFields
 import com.example.ticketease.MVVM.Event.EnterParam.ViewModelEnterParam
-import com.example.ticketease.MVVM.Person.Buyer.Register.RegisterStateTextFields
-import com.example.ticketease.MVVM.Person.Buyer.Register.ViewModelRegistBuyer
 import com.example.ticketease.R
 import com.example.ticketease.Screens.EnterAppByer.checkSymbols
 
@@ -34,8 +31,7 @@ import com.example.ticketease.Screens.EnterAppByer.checkSymbols
 fun CreateEvent(navController: NavHostController, viewModel: ViewModelEnterParam = hiltViewModel()) {
     val state = viewModel.state
     val context = LocalContext.current
-    val statePlace=viewModel.statePlace
-    val stateDate=viewModel.stateDate
+    val statePlace=viewModel.statePrice
 
     Box(modifier = Modifier
         .background(color = colorResource(R.color.white))
@@ -72,21 +68,14 @@ fun CreateEvent(navController: NavHostController, viewModel: ViewModelEnterParam
                         .padding(5.dp),
                 )
                 TextField(
-                    value = stateDate.value,
-                    onValueChange = { viewModel.enter(EnterParamStateTextFields.Date(it)) },
-                    placeholder = { Text(text = "Дата дд.мм.гг") },
-                    modifier = Modifier
-                        .padding(5.dp),
-                )
-                TextField(
-                    value = state.type.toString(),
+                    value = state.type,
                     onValueChange = { viewModel.enter(EnterParamStateTextFields.Type(it)) },
                     placeholder = { Text(text = "Тип мероприятия") },
                     modifier = Modifier
                         .padding(5.dp),
                 )
                 TextField(
-                    value = state.genre.toString(),
+                    value = state.genre,
                     onValueChange = { viewModel.enter(EnterParamStateTextFields.Genre(it)) },
                     placeholder = { Text(text = "Жанр мероприятия") },
                     modifier = Modifier
@@ -113,10 +102,7 @@ fun CreateEvent(navController: NavHostController, viewModel: ViewModelEnterParam
                             onClick = {
                                 if (checkSymbols(state.name) and checkSymbols(state.genre!!) and checkSymbols(
                                         state.type!!
-                                    ) and checkSymbols(
-                                        state.description!!
-                                    ) and stateDate.value.contains("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))\$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$".toRegex())
-                                ) {
+                                    )) {
 
                                     viewModel.enter(EnterParamStateTextFields.Enter)
                                     navController.navigate("PlaceSelector")
@@ -135,7 +121,6 @@ fun CreateEvent(navController: NavHostController, viewModel: ViewModelEnterParam
                                     R.color.backgroud
                                 )
                             ),
-
                             )
                         {
 
@@ -145,7 +130,62 @@ fun CreateEvent(navController: NavHostController, viewModel: ViewModelEnterParam
                             }
                         }
 
+                        Box(
+                            modifier = Modifier
+                                .background(color = colorResource(R.color.white))
+                                .fillMaxWidth()
+                                .offset(0.dp, 50.dp)
+                                .height(70.dp), contentAlignment = Alignment.BottomCenter
+                        ) {
+                            Row() {
+                                Column() {
+                                    Image(
+                                        painterResource(id = R.drawable.eventwhite),
+                                        contentDescription = "image",
+                                        modifier = Modifier
+                                            .size(40.dp, 40.dp)
+                                            .offset(105.dp, -5.dp)
+                                            .clickable() {
+                                                navController.navigate("CreateEvent")
+                                            },
+                                        contentScale = ContentScale.Crop
+                                    )
+                                    Text(
+                                        text = "Создать мероприятие ",
+                                        fontSize = 10.sp,
+                                        modifier = Modifier.padding(85.dp, 5.dp)
+                                    )
+                                }
+                                Box(modifier = Modifier.size(15.dp, 30.dp)) {
 
+                                }
+                                Column() {
+                                    Image(
+                                        painterResource(id = R.drawable.avatarbl),
+                                        contentDescription = "image",
+                                        modifier = Modifier
+                                            .size(35.dp, 35.dp)
+                                            .offset(-20.dp, -4.dp)
+                                            .clickable() {
+                                                navController.navigate("PersonalOrg")
+                                            },
+                                        contentScale = ContentScale.Crop
+                                    )
+                                    Text(
+                                        text = "Личный кабинет",
+                                        fontSize = 10.sp,
+                                        modifier = Modifier.offset(-40.dp, 10.dp)
+                                    )
+                                }
+                                Box(modifier = Modifier.size(30.dp, 30.dp)) {
+
+                                }
+                                Box(modifier = Modifier.size(30.dp, 30.dp)) {
+
+                                }
+
+                            }
+                        }
                     }
 
                 }

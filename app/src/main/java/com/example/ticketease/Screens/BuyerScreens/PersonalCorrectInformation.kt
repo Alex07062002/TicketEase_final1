@@ -137,7 +137,6 @@ fun PersonalCorrectInformation(navController: NavHostController, viewModel: View
                                 viewModel.update(UpdateBuyerStateTextFields.UpdateBuyer)
                                 navController.navigate("Personal")
                                 viewModel.flag = false
-
                             }
                         },
                         modifier = Modifier

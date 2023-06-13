@@ -10,7 +10,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.testcompose.CartPersonal
 import com.example.testcompose.Preference
+import com.example.testcompose.SuccessfulOrder
 import com.example.testcompose.ui.theme.TestComposeTheme
 import com.example.ticketease.Screens.EnterAppByer.*
 import com.example.ticketease.Screens.EnterOrg.AvtorizeOrg
@@ -21,7 +23,7 @@ import com.example.ticketease.Screens.HelloPages.*
 import com.example.ticketease.Screens.NAUser.CartNAUser
 import com.example.ticketease.Screens.NAUser.CatalogNAUser
 import com.example.ticketease.Screens.NAUser.PersonalNAUSer
-import com.example.ticketease.Screens.NAUser.PrefarenceNAUSer
+import com.example.ticketease.Screens.NAUser.PreferenceNAUSer
 import com.example.ticketease.Screens.Organizer.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +33,7 @@ class MainActivity : ComponentActivity()  {
         super.onCreate(savedInstanceState)
         setContent {
             TestComposeTheme {
-                Surface() {
+                Surface {
                     ScreenView()
                 }
             }
@@ -53,6 +55,9 @@ fun ScreenView(){
 
         composable("Personal"){ Personal(navController) }
         composable("PersonalOrg"){ PersonalOrg(navController) }
+        composable("CartPersonal"){ CartPersonal(navController)}
+        composable("SuccessfulOrder"){ SuccessfulOrder(navController)}
+        composable("SuccessfulEvent"){ SuccessfulEvent(navController)}
 
         composable("ErrorNoLogin"){ ErrorNoLogin(navController) }
         composable("HelloPage1"){ HelloPage1(navController) }
@@ -70,7 +75,7 @@ fun ScreenView(){
         composable("CartNAUser"){ CartNAUser(navController) }
         composable("CatalogNAUser"){ CatalogNAUser(navController) }
         composable("PersonalNAUSer"){ PersonalNAUSer(navController) }
-        composable("PrefarenceNAUSer"){ PrefarenceNAUSer(navController) }
+        composable("PreferenceNAUSer"){ PreferenceNAUSer(navController) }
         composable("PersonalCorrectInformation"){ PersonalCorrectInformation(navController) }
         composable("CitySelector"){ CitySelector(navController) }
         composable("CitySelectorOrg"){ CitySelector(navController) }

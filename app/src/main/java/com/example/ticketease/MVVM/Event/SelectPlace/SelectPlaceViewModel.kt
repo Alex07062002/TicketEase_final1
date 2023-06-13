@@ -18,17 +18,12 @@ class SelectPlaceViewModel @Inject constructor(
     var placeState by  mutableStateOf(PlaceDTO())
     fun place(place : SelectPlace){
         when(place){
-            is SelectPlace.Place -> placeState = placeState.copy(name = place.value)
-            //is   SelectPlace.Capacity->placeState = placeState.copy(capacity = place.value)
             is SelectPlace.selectPlace -> putCity()
         }
     }
 
     private fun putCity() {
-        //var state by mutableStateOf(Gson().fromJson(prefs.getString("event",null)!!, EventDTO::class.java))
-        //prefs.edit().putString("place", placeState.value)!!.apply()
-        prefs.edit().putString("placeDTO", Gson().toJson(placeState.name)).apply()
-
+        prefs.edit().putString("placeDTO", Gson().toJson(placeState,PlaceDTO::class.java)).apply()
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.ticketease.MVVM.Person.Buyer
+package com.example.ticketease.MVVM
 
 import android.app.Application
 import android.content.Context.MODE_PRIVATE
@@ -7,6 +7,10 @@ import com.example.ticketease.MVVM.Event.Catalog.CatalogRepository
 import com.example.ticketease.MVVM.Event.Catalog.CatalogRepositoryImpl
 import com.example.ticketease.MVVM.Event.Preferences.PreferencesRepository
 import com.example.ticketease.MVVM.Event.Preferences.PreferencesRepositoryImpl
+import com.example.ticketease.MVVM.Event.SelectTime.CreateEvent
+import com.example.ticketease.MVVM.Event.SelectTime.CreateEventImpl
+import com.example.ticketease.MVVM.Event.SuccessfulEvent.SuccessfulEventRepository
+import com.example.ticketease.MVVM.Event.SuccessfulEvent.SuccessfulEventRepositoryImpl
 import com.example.ticketease.MVVM.Event.getEvents.getEventsRepository
 import com.example.ticketease.MVVM.Event.getEvents.getEventsRepositoryImpl
 import com.example.ticketease.MVVM.Event.getTime.getTimeRepository
@@ -15,6 +19,8 @@ import com.example.ticketease.MVVM.Event.getTime.getTimeRepositoryImpl
 
 import com.example.ticketease.MVVM.Person.Buyer.Avtorize.AvtRepository
 import com.example.ticketease.MVVM.Person.Buyer.Avtorize.AvtRepositoryImpl
+import com.example.ticketease.MVVM.Person.Buyer.CartPersonal.CartPersonalRepository
+import com.example.ticketease.MVVM.Person.Buyer.CartPersonal.CartPersonalRepositoryImpl
 import com.example.ticketease.MVVM.Person.Buyer.CitySelector.CitySelectorRepository
 import com.example.ticketease.MVVM.Person.Buyer.CitySelector.CitySelectorRepositoryImpl
 import com.example.ticketease.MVVM.Person.Buyer.Personal.PersonalRepository
@@ -34,6 +40,7 @@ import com.example.ticketease.MVVM.Person.Organizer.Register.RegisterRepositoryO
 import com.example.ticketease.MVVM.Person.Organizer.Register.RegisterRepositoryOrgImpl
 import com.example.ticketease.MVVM.Person.Organizer.UpdateOrganizer.UpdateOrgRepository
 import com.example.ticketease.MVVM.Person.Organizer.UpdateOrganizer.UpdateOrgRepositoryImpl
+import com.example.ticketease.MVVM.RetrofitAPI
 
 import com.example.ticketease.MVVM.url
 import dagger.Module
@@ -50,7 +57,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun postDataRegisterUser() : BuyerRetrofitAPI {
+    fun postDataRegisterUser() : RetrofitAPI {
         return Retrofit.Builder()
             .baseUrl(url)
             .addConverterFactory(JacksonConverterFactory.create())
@@ -65,94 +72,118 @@ fun provideSharedPref(app : Application) : SharedPreferences{
 
     @Provides
     @Singleton
-    fun provideRegisterRepository(api : BuyerRetrofitAPI,prefs : SharedPreferences) : RegisterRepository{
+    fun provideRegisterRepository(api : RetrofitAPI, prefs : SharedPreferences) : RegisterRepository{
         return RegisterRepositoryImpl(api, prefs)
     }
 
 
     @Provides
     @Singleton
-    fun provideAvtRepository(api : BuyerRetrofitAPI,prefs : SharedPreferences) : AvtRepository {
+    fun provideAvtRepository(api : RetrofitAPI, prefs : SharedPreferences) : AvtRepository {
         return AvtRepositoryImpl(api, prefs)
     }
 
 
     @Provides
     @Singleton
-    fun providePersonalRepository(api : BuyerRetrofitAPI,prefs : SharedPreferences) : PersonalRepository {
+    fun providePersonalRepository(api : RetrofitAPI, prefs : SharedPreferences) : PersonalRepository {
         return PersonalRepositoryImpl(api, prefs)
     }
 
 
     @Provides
     @Singleton
-    fun provideRegisterRepositoryOrg(api : BuyerRetrofitAPI,prefs : SharedPreferences) : RegisterRepositoryOrg {
+    fun provideRegisterRepositoryOrg(api : RetrofitAPI, prefs : SharedPreferences) : RegisterRepositoryOrg {
         return RegisterRepositoryOrgImpl(api, prefs)
     }
 
 
     @Provides
     @Singleton
-    fun provideAvtRepositoryOrg(api : BuyerRetrofitAPI,prefs : SharedPreferences) : AvtRepositoryOrg {
+    fun provideAvtRepositoryOrg(api : RetrofitAPI, prefs : SharedPreferences) : AvtRepositoryOrg {
         return AvtRepositoryOrgImpl(api, prefs)
     }
 
     @Provides
     @Singleton
-    fun providePersonalRepositoryOrg(api : BuyerRetrofitAPI,prefs : SharedPreferences) : PersonalRepositoryOrg {
+    fun providePersonalRepositoryOrg(api : RetrofitAPI, prefs : SharedPreferences) : PersonalRepositoryOrg {
         return PersonalRepositoryOrgImpl(api, prefs)
     }
 
     @Provides
     @Singleton
-    fun providePersonalUpdateBuyer(api : BuyerRetrofitAPI,prefs : SharedPreferences) : UpdateBuyerRepository {
+    fun providePersonalUpdateBuyer(api : RetrofitAPI, prefs : SharedPreferences) : UpdateBuyerRepository {
         return UpdateBuyerRepositoryImpl(api, prefs)
     }
 
 
     @Provides
     @Singleton
-    fun provideCatalog(api : BuyerRetrofitAPI,prefs : SharedPreferences) : CatalogRepository {
+    fun provideCatalog(api : RetrofitAPI, prefs : SharedPreferences) : CatalogRepository {
         return CatalogRepositoryImpl(api, prefs)
     }
 
 
     @Provides
     @Singleton
-    fun provideCitySelector(api : BuyerRetrofitAPI,prefs : SharedPreferences) : CitySelectorRepository {
+    fun provideCitySelector(api : RetrofitAPI, prefs : SharedPreferences) : CitySelectorRepository {
         return CitySelectorRepositoryImpl(api, prefs)
     }
 
     @Provides
     @Singleton
-    fun provideCitySelectorOrg(api : BuyerRetrofitAPI,prefs : SharedPreferences) : CitySelectorOrgRepository {
+    fun provideCitySelectorOrg(api : RetrofitAPI, prefs : SharedPreferences) : CitySelectorOrgRepository {
         return CitySelectorOrgRepositoryImpl(api, prefs)
     }
 
     @Provides
     @Singleton
-    fun providePersonalUpdateOrg(api : BuyerRetrofitAPI,prefs : SharedPreferences) : UpdateOrgRepository {
+    fun provideCartPersonalBuyer(api : RetrofitAPI, prefs : SharedPreferences) : CartPersonalRepository {
+        return CartPersonalRepositoryImpl(api, prefs)
+    }
+
+    @Provides
+    @Singleton
+    fun providePersonalUpdateOrg(api : RetrofitAPI, prefs : SharedPreferences) : UpdateOrgRepository {
         return UpdateOrgRepositoryImpl(api, prefs)
     }
 
     @Provides
     @Singleton
-    fun provideGetPlace(api : BuyerRetrofitAPI,prefs : SharedPreferences) : getEventsRepository {
+    fun provideGetPlace(api : RetrofitAPI, prefs : SharedPreferences) : getEventsRepository {
         return getEventsRepositoryImpl(api, prefs)
     }
     @Provides
     @Singleton
-    fun provideGetTime(api : BuyerRetrofitAPI,prefs : SharedPreferences) : getTimeRepository {
+    fun provideGetTime(api : RetrofitAPI, prefs : SharedPreferences) : getTimeRepository {
         return getTimeRepositoryImpl(api, prefs)
     }
 
     @Provides
     @Singleton
     fun providePreferencesRepository(
-        api: BuyerRetrofitAPI,
+        api: RetrofitAPI,
         prefs: SharedPreferences
     ): PreferencesRepository {
         return PreferencesRepositoryImpl(api, prefs)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCreateEventRepository(
+        api: RetrofitAPI,
+        prefs: SharedPreferences
+    ): CreateEvent {
+        return CreateEventImpl(api, prefs)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSuccessfulEventRepository(
+        api: RetrofitAPI,
+        prefs: SharedPreferences
+    ): SuccessfulEventRepository {
+        return SuccessfulEventRepositoryImpl(api, prefs)
     }
 }
 

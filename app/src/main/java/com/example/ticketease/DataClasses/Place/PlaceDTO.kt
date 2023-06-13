@@ -12,7 +12,7 @@ data class PlaceDTO(
     @JsonProperty("name")
     val name: String="",
     @JsonProperty("capacity")
-    val capacity: Long? =null,
+    var capacity: Long? =null,
     @JsonProperty("numRow")
 
     val numRow: Int?=null,

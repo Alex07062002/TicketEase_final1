@@ -35,7 +35,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.ticketease.DataClasses.Event.EventId
 import com.example.ticketease.MVVM.Event.Catalog.ViewModelCatalog
 import com.example.ticketease.R
 import java.time.Instant
@@ -52,7 +54,7 @@ import java.time.Instant
                 .height(80.dp)
                 .fillMaxWidth(), contentAlignment = Alignment.Center) {
 
-            Column() {Spacer(modifier = Modifier.height(5.dp))
+            Column {Spacer(modifier = Modifier.height(5.dp))
 
 
             }
@@ -73,6 +75,7 @@ import java.time.Instant
                 ) {
                     for(event in events.value){
                         ListItem(
+                            eventId = event.eventId,
                             name = event.name,
                             location = event.location,
                             date =  Instant.ofEpochMilli(event.date),
@@ -88,8 +91,8 @@ import java.time.Instant
                         .fillMaxWidth()
                         .height(70.dp), contentAlignment = Alignment.BottomCenter
                 ) {
-                    Row() {
-                        Column() {
+                    Row {
+                        Column {
                             Image(
                                 painterResource(id = R.drawable.bar1),
                                 contentDescription = "image",
@@ -110,14 +113,14 @@ import java.time.Instant
                         Box(modifier = Modifier.size(30.dp, 30.dp)){
 
                         }
-                        Column() {
+                        Column {
                             Image(
                                 painterResource(id = R.drawable.dscds),
                                 contentDescription = "image",
                                 modifier = Modifier
                                     .size(35.dp, 35.dp)
                                     .offset((-7).dp, (-7).dp)
-                                    .clickable() {
+                                    .clickable {
                                         navController.navigate("Preference")
                                     }
                                 ,
@@ -128,39 +131,38 @@ import java.time.Instant
                         Box(modifier = Modifier.size(30.dp, 30.dp)){
 
                         }
-                        Column() {
+                        Column {
                             Image(
                                 painterResource(id = R.drawable.shopcart),
                                 contentDescription = "image",
                                 modifier = Modifier
                                     .size(30.dp, 30.dp)
                                     .offset((-25).dp, (-5).dp)
-                                    .clickable() {
-                                        // TODO load ticket
-                                        // navController.navigate(NavigationItem.Cart.route) // TODO change this
+                                    .clickable{
+                                         navController.navigate("CartPersonal")
                                     }
                                 ,
                                 contentScale = ContentScale.Crop
                             )
-                            Text(text = "Корзина", fontSize = 10.sp, modifier = Modifier.offset(-28.dp, 5.dp))
+                            Text(text = "Корзина", fontSize = 10.sp, modifier = Modifier.offset((-28).dp, 5.dp))
                         }
                         Box(modifier = Modifier.size(30.dp, 30.dp)){
 
                         }
-                        Column() {
+                        Column {
                             Image(
                                 painterResource(id = R.drawable.avatar),
                                 contentDescription = "image",
                                 modifier = Modifier
                                     .size(31.dp, 31.dp)
-                                    .offset(-15.dp, -5.dp)
+                                    .offset((-15).dp, (-5).dp)
                                     .clickable {
                                         navController.navigate("Personal")
                                     }
                                 ,
                                 contentScale = ContentScale.Crop
                             )
-                            Text(text = "Личный кабинет", fontSize = 10.sp, modifier = Modifier.offset(-20.dp, -3.dp))
+                            Text(text = "Личный кабинет", fontSize = 10.sp, modifier = Modifier.offset((-20).dp, (-3).dp))
                         }
                     }
                 }
@@ -170,7 +172,7 @@ import java.time.Instant
 }
 
 @Composable
-fun ListItem(cost:Double, location:String, date:Instant, name:String,  ID: Int){
+fun ListItem(eventId: Long,cost:Double, location:String, date:Instant, name:String,  ID: Int, viewModel: ViewModelCatalog = hiltViewModel()){
     var isLiked by remember { mutableStateOf(false) }
 
     Card(modifier = Modifier
@@ -179,9 +181,9 @@ fun ListItem(cost:Double, location:String, date:Instant, name:String,  ID: Int){
         .padding(10.dp)
     ) {
         Box(modifier = Modifier.background(color = colorResource(R.color.vgrey))) {
-            Column() {
+            Column {
 
-                Row() {
+                Row {
                     Box(modifier = Modifier.fillMaxWidth(),
                         contentAlignment = Alignment.TopCenter) {
                         Text(
@@ -195,7 +197,7 @@ fun ListItem(cost:Double, location:String, date:Instant, name:String,  ID: Int){
 
 
 
-                Row() {
+                Row {
                     Image(
                         painterResource(id = ID),
                         contentDescription = "image",
@@ -204,7 +206,7 @@ fun ListItem(cost:Double, location:String, date:Instant, name:String,  ID: Int){
                             .offset(65.dp, 10.dp),
                         contentScale = ContentScale.Crop,
                     )
-                    Column() {
+                    Column{
                         Image(
                             painterResource(
                                 id = if (isLiked) R.drawable.likecarrot else R.drawable.like
@@ -212,7 +214,7 @@ fun ListItem(cost:Double, location:String, date:Instant, name:String,  ID: Int){
                             contentDescription = "image2",
                             modifier = Modifier
                                 .size(30.dp, 30.dp)
-                                .offset(98.dp, -32.dp)
+                                .offset(98.dp, (-32).dp)
                                 .clickable {
                                     isLiked = !isLiked
                                 },
@@ -220,7 +222,9 @@ fun ListItem(cost:Double, location:String, date:Instant, name:String,  ID: Int){
                         )
                         Box(modifier = Modifier.height(120.dp)) {}
                         Button(
-                            onClick = { },
+                            onClick = {
+                                     viewModel.checkCartList(com.example.ticketease.DataClasses.Catalog(eventId,name,cost,location,date.epochSecond))
+                            },
                             modifier = Modifier
                                 .height(40.dp)
                                 .offset(15.dp, 140.dp)
@@ -235,7 +239,7 @@ fun ListItem(cost:Double, location:String, date:Instant, name:String,  ID: Int){
 
                     }
                 }
-                Row() {
+                Row{
                     Image(
                         painterResource(id = R.drawable.free_icon_ruble_1868089),
                         contentDescription = "image",
@@ -253,7 +257,7 @@ fun ListItem(cost:Double, location:String, date:Instant, name:String,  ID: Int){
 
                     }
                 }
-                Row() {
+                Row{
                     Image(
                         painterResource(id = R.drawable.free_icon_place_711170),
                         contentDescription = "image",
@@ -268,7 +272,7 @@ fun ListItem(cost:Double, location:String, date:Instant, name:String,  ID: Int){
                         fontSize = 15.sp
                     )
                 }
-                Row() {
+                Row {
                     Image(
                         painterResource(id = R.drawable.free_icon_dates_4253987),
                         contentDescription = "image",

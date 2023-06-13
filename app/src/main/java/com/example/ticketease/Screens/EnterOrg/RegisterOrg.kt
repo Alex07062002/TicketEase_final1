@@ -41,7 +41,7 @@ fun RegisterOrg(navController: NavHostController, viewModel: ViewModelRegistOrg 
                 res ->
             when (res){
                 is RegistResultOrg.Registered -> {
-                    navController.navigate("Personal")
+                    navController.navigate("CreateEvent")
                 }
                 is RegistResultOrg.Unregistered -> {
                    navController.navigate("UncorrectTextOrg")
@@ -148,7 +148,7 @@ fun RegisterOrg(navController: NavHostController, viewModel: ViewModelRegistOrg 
                             ) {
                                 if (!viewModel.flag) {
                                     viewModel.register(RegisterStateTextFieldsOrg.RegisterOrganizer)
-                                    navController.navigate("PersonalOrg")
+                                    navController.navigate("CreateEvent")
                                     viewModel.flag = false
                                 } else {
                                     navController.navigate("UncorrectTextOrg")
@@ -162,7 +162,6 @@ fun RegisterOrg(navController: NavHostController, viewModel: ViewModelRegistOrg 
                         }
                         else {
                             navController.navigate("UncorrectTextOrg")
-
                             Toast.makeText(context,"Error",Toast.LENGTH_LONG).show()
                         }
                               },

@@ -6,29 +6,27 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class EventDTO(
     @JsonProperty("id")
-    val id: Long?=null,
+    val id: Long? = null,
     @JsonProperty("placeTimeId")
-
-    val placeTimeId: Long? =null,
+    var placeTimeId: Long? = null,
     @JsonProperty("organizerId")
-
-    val organizerId: Long?=null,
+    var organizerId: Long? = null,
     @JsonProperty("name")
-
     val name: String="",
     @JsonProperty("genre")
-
-    val genre: String? =null,
+    val genre: String ="",
     @JsonProperty("type")
-
-    val type: String? =null,
+    val type: String = "",
     @JsonProperty("status")
-
-    val status: StatusEvent = StatusEvent.CREATE,
+    val status: String = StatusEvent.CREATE.toString(),
     @JsonProperty("nameGroup")
-
     val nameGroup: String? = null,
     @JsonProperty("description")
-
     val description: String? = null)
+
+@Serializable
+data class EventId(
+    @JsonProperty("id")
+    val id : Long
+)
 

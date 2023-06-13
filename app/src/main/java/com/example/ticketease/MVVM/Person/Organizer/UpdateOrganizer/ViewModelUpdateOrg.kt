@@ -25,7 +25,6 @@ class ViewModelUpdateOrg @Inject constructor(
 ) : ViewModel() {
     var flag : Boolean = false
     var state by mutableStateOf(Gson().fromJson(prefs.getString("organizer",null)!!, OrganizerWithoutPswd::class.java))
-
     private val resultChannel = Channel<UpdateOrgResult<Unit>>()
     val Results = resultChannel.receiveAsFlow()
 

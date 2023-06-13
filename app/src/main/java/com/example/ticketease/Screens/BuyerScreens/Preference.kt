@@ -63,6 +63,7 @@ fun Preference(navController: NavHostController, viewModel : ViewModelPreference
 
                       for (event in preferences.value)
                         ListItem(
+                            eventId = event.eventId,
                               name = event.name,
                               location = event.location,
                               date = Instant.ofEpochMilli(event.date),
@@ -129,12 +130,12 @@ fun Preference(navController: NavHostController, viewModel : ViewModelPreference
                                         .size(30.dp, 30.dp)
                                         .offset((-5).dp, (-5).dp)
                                         .clickable() {
-                                            //navController.navigate("Personal") // TODO CartView
+                                            navController.navigate("CartPersonal")
                                         },
                                     contentScale = ContentScale.Crop
                                 )
                                 Text(
-                                    text = "Корзина ",
+                                    text = "Корзина",
                                     fontSize = 10.sp,
                                     modifier = Modifier.offset((-8).dp, 5.dp)
                                 )
@@ -149,7 +150,7 @@ fun Preference(navController: NavHostController, viewModel : ViewModelPreference
                                     modifier = Modifier
                                         .size(31.dp, 31.dp)
                                         .offset(15.dp, (-5).dp)
-                                        .clickable{
+                                        .clickable {
                                             navController.navigate("Personal")
                                         },
                                     contentScale = ContentScale.Crop
@@ -167,7 +168,7 @@ fun Preference(navController: NavHostController, viewModel : ViewModelPreference
         }
     }
 @Composable
-fun ListItem(cost:Double, location:String, date: Instant, name:String, ID: Int){
+fun ListItem(eventId : Long, cost:Double, location:String, date: Instant, name:String, ID: Int, viewModel:ViewModelPreferences = hiltViewModel()){
     var isLiked by remember { mutableStateOf(false) }
 
     Card(modifier = Modifier
@@ -196,7 +197,9 @@ fun ListItem(cost:Double, location:String, date: Instant, name:String, ID: Int){
                     Image(
                         painterResource(id = ID),
                         contentDescription = "image",
-                        modifier = Modifier.size(250.dp, 230.dp).offset(65.dp, 10.dp),
+                        modifier = Modifier
+                            .size(250.dp, 230.dp)
+                            .offset(65.dp, 10.dp),
                         contentScale = ContentScale.Crop,
                     )
                     Column {
@@ -216,7 +219,7 @@ fun ListItem(cost:Double, location:String, date: Instant, name:String, ID: Int){
                         Box(modifier = Modifier.height(120.dp)) {}
                         Button(
                             onClick = {
-                                      //TODO added goto cart
+                                viewModel.checkCartList(com.example.ticketease.DataClasses.Catalog(eventId,name,cost,location,date.epochSecond))
                             },
                             modifier = Modifier
                                 .height(40.dp)
@@ -236,7 +239,9 @@ fun ListItem(cost:Double, location:String, date: Instant, name:String, ID: Int){
                     Image(
                         painterResource(id = R.drawable.free_icon_ruble_1868089),
                         contentDescription = "image",
-                        modifier = Modifier.size(17.dp, 17.dp).offset(15.dp, 22.dp),
+                        modifier = Modifier
+                            .size(17.dp, 17.dp)
+                            .offset(15.dp, 22.dp),
                         contentScale = ContentScale.Crop
                     )
                     Text(
@@ -252,7 +257,9 @@ fun ListItem(cost:Double, location:String, date: Instant, name:String, ID: Int){
                     Image(
                         painterResource(id = R.drawable.free_icon_place_711170),
                         contentDescription = "image",
-                        modifier = Modifier.size(17.dp, 17.dp).offset(15.dp, 22.dp),
+                        modifier = Modifier
+                            .size(17.dp, 17.dp)
+                            .offset(15.dp, 22.dp),
                         contentScale = ContentScale.Crop
                     )
                     Text(
@@ -265,7 +272,9 @@ fun ListItem(cost:Double, location:String, date: Instant, name:String, ID: Int){
                     Image(
                         painterResource(id = R.drawable.free_icon_dates_4253987),
                         contentDescription = "image",
-                        modifier = Modifier.size(17.dp, 17.dp).offset(15.dp, 22.dp),
+                        modifier = Modifier
+                            .size(17.dp, 17.dp)
+                            .offset(15.dp, 22.dp),
                         contentScale = ContentScale.Crop
                     )
                     Text(

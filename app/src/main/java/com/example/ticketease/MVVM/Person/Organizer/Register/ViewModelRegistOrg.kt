@@ -41,7 +41,6 @@ class ViewModelRegistOrg @Inject constructor(
             is RegisterStateTextFieldsOrg.RegisterOrganizer ->{
                 state = state.copy(city = Cities.valueOf(prefs.getString("city","Voronezh")!!))
                 state = state.copy(status = StatusOrganizer.CONSIDERATION)
-
                 signIn()
             }
         }

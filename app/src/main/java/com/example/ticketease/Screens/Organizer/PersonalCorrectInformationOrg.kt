@@ -33,6 +33,7 @@ import com.example.ticketease.MVVM.Person.Organizer.UpdateOrganizer.UpdateOrgRes
 import com.example.ticketease.MVVM.Person.Organizer.UpdateOrganizer.UpdateOrgStateTextFields
 import com.example.ticketease.MVVM.Person.Organizer.UpdateOrganizer.ViewModelUpdateOrg
 import com.example.ticketease.R
+import kotlinx.coroutines.delay
 import java.util.*
 
 
@@ -59,9 +60,10 @@ fun PersonalCorrectInformationOrg(navController: NavHostController, viewModel: V
         }
     }
     Column() {
-        //var p = PersonItem("Nickolay", "Ivanov", "88005553535", "Voronezh")
         Button(
-            onClick = { navController.navigate("PersonalOrg") },
+            onClick = {
+                navController.navigate("PersonalOrg")
+                      },
             modifier = Modifier
                 .height(120.dp)
                 .width(450.dp),
@@ -117,14 +119,7 @@ fun PersonalCorrectInformationOrg(navController: NavHostController, viewModel: V
                         onValueChange = { viewModel.update(UpdateOrgStateTextFields.Name(it)) },
                         placeholder = { Text(text = "Имя") },
                         modifier = Modifier
-                            .padding(5.dp).clickable(){
-                                val locale = Locale("ru")
-                                Locale.setDefault(locale)
-                                val resources = context.resources
-                                val configuration = resources.configuration
-                                configuration.locale = locale
-                                resources.updateConfiguration(configuration, resources.displayMetrics)
-                            }
+                            .padding(5.dp)
 
                     )
                     TextField(

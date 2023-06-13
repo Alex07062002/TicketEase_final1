@@ -18,9 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.ticketease.MVVM.Person.Buyer.Avtorize.AvtResult
-import com.example.ticketease.MVVM.Person.Buyer.Avtorize.AvtStateTextFields
-import com.example.ticketease.MVVM.Person.Buyer.Avtorize.ViewModelAvtBuyer
 import com.example.ticketease.MVVM.Person.Organizer.Avtorize.AvtResultOrg
 import com.example.ticketease.MVVM.Person.Organizer.Avtorize.AvtStateTextFieldsOrg
 import com.example.ticketease.MVVM.Person.Organizer.Avtorize.ViewModelAvtOrg
@@ -36,7 +33,7 @@ fun AvtorizeOrg(navController: NavHostController, viewModel: ViewModelAvtOrg = h
                 res ->
             when (res){
                 is AvtResultOrg.Avtorized -> {
-                    navController.navigate("PersonalOrg")
+                    navController.navigate("CreateEvent")
                 }
                 is AvtResultOrg.IncorrectPassword -> {
                     navController.navigate("UncorrectTextOrg")
@@ -88,7 +85,13 @@ fun AvtorizeOrg(navController: NavHostController, viewModel: ViewModelAvtOrg = h
 
                 Button(
                     onClick = {
-                        navController.navigate("PersonalOrg")
+                        if(state.login!= "" && state.password!= "") {
+                            if (!viewModel.flag) {
+                                viewModel.avtorize(AvtStateTextFieldsOrg.AvtOrg)
+                                viewModel.flag = false
+                                navController.navigate("CreateEvent")
+                            }
+                        }
                               },
                     modifier = Modifier
                         .padding(top = 300.dp)

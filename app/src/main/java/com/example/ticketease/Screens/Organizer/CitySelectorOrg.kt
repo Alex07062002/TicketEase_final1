@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.ticketease.DataClasses.Person.Cities
-import com.example.ticketease.MVVM.Person.Buyer.CitySelector.CitySelector
 import com.example.ticketease.MVVM.Person.Organizer.CitySelectorOrg.ViewModelCitySelectorOrg
 import com.example.ticketease.MVVM.Person.Organizer.CitySelectorOrg.CitySelectorOrg
 
@@ -28,7 +27,6 @@ import com.example.ticketease.R
 @Composable
 fun CitySelectorOrg(navController: NavHostController, viewModel: ViewModelCitySelectorOrg = hiltViewModel()) {
 
-    val selectedCity = rememberSaveable { mutableStateOf(Cities.Voronezh) }
     val isButtonPressedVrn = remember { mutableStateOf(false) }
     val isButtonPressedSpb = remember { mutableStateOf(false) }
     val isButtonPressedMsc = remember { mutableStateOf(false) }
